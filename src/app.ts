@@ -14,13 +14,28 @@ enum Category {
     TypeScript,
 }
 
-type Book = {
+// type Book = {
+//     id: number;
+//     title: string;
+//     author: string;
+//     category: Category;
+//     available: boolean;
+// };
+
+interface Book {
     id: number;
     title: string;
     author: string;
     category: Category;
     available: boolean;
-};
+    pages?: number;
+    markDamaged?: DamageLogger;
+    // markDamaged?(reason: string): void;
+}
+
+interface DamageLogger {
+    (reason: string): void;
+}
 
 function getAllBooks(): readonly Book[] {
     const books = <const>[
@@ -122,7 +137,7 @@ function createCustomer(name: string, age?: number, city?: string): void {
 }
 
 // const getBookByID = (id: number): Book => {
-function getBookByID(id: Book['id']): Book {
+function getBookByID(id: Book['id']): Book | undefined {
     return getAllBooks().find(book => book.id === id);
 }
 
@@ -191,9 +206,90 @@ function bookTitleTransform(title: any): string | never {
 // console.log(getTitles(1, true));
 // console.log(getTitles('Lea Verou'));
 
-console.log(bookTitleTransform('12345'));
-console.log(bookTitleTransform(12356));
+// console.log(bookTitleTransform('12345'));
+// console.log(bookTitleTransform(12356));
 
 // ==================================================================
 
 // ========================== 04 Interfaces =========================
+
+function printBook(book: Book): void {
+    console.log(`${book.title} by ${book.author}`);
+}
+
+const myBook: Book = {
+    id: 5,
+    title: 'Colors, Backgrounds, and Gradients',
+    author: 'Eric A. Meyer',
+    available: true,
+    category: Category.CSS,
+    pages: 200,
+    markDamaged: (reason: string) => {
+        console.log(`Damaged: ${reason}`);
+    },
+    // year: 2015,
+    // copies: 3,
+};
+
+const logDamage: DamageLogger = (reason: string) => {
+    console.log(`Damaged: ${reason}`);
+};
+
+interface Person {
+    name: string;
+    email: string;
+}
+
+interface Author extends Person {
+    numBooksPublished: number;
+}
+
+interface Librarian extends Person {
+    department: string;
+    assistCustomer: (custName: string, bookTitle: string) => void;
+}
+
+const favoriteAuthor: Author = {
+    name: 'John Adams',
+    email: 'johnadams@gmail.com',
+    numBooksPublished: 2,
+};
+
+const favoriteLibrarian: Librarian = {
+    name: 'Anna Clark',
+    email: 'annaclark@gmail.com',
+    department: 'N12',
+    assistCustomer(custName: string, bookTitle: string) {
+        console.log(`${custName}: ${bookTitle}`);
+    },
+};
+
+const offer: any = {
+    book: {
+        title: 'Essential TypeScript',
+    },
+};
+
+type BookProperties = keyof Book;
+
+function getProperty(book: Book, prop: BookProperties): any {
+    const val = book[prop];
+    return typeof val === 'function' ? val.name : val;
+}
+
+// ==================================================================
+
+// printBook(myBook);
+// myBook.markDamaged('missing back cover');
+// logDamage('missing back cover');
+
+// console.log(offer.magazine);
+// console.log(offer.magazine?.getTitle());
+// console.log(offer.book.getTitle?.());
+// console.log(offer.book?.authors?.[0]);
+
+// console.log(getProperty(myBook, 'title'));
+// console.log(getProperty(myBook, 'markDamaged'));
+// // console.log(getProperty(myBook, 'isbn'));
+
+// ==================================================================
