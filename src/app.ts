@@ -293,3 +293,97 @@ function getProperty(book: Book, prop: BookProperties): any {
 // // console.log(getProperty(myBook, 'isbn'));
 
 // ==================================================================
+
+// =========================== 05 Classses ==========================
+
+abstract class ReferenceItem {
+    // title: string;
+    // year: number;
+
+    // constructor(newTitle: string, newYear: number) {
+    //     console.log('Creating a new ReferenceItem...');
+
+    //     this.title = newTitle;
+    //     this.year = newYear;
+    // }
+
+    static department: string = 'Research Department';
+    private _publisher: string;
+    #id: number;
+
+    get publisher(): string {
+        return this._publisher.toUpperCase();
+    }
+
+    set publisher(newPublisher: string) {
+        this._publisher = newPublisher;
+    }
+
+    constructor(id: number, public title: string, protected year: number) {
+        console.log('Creating a new ReferenceItem...');
+        this.#id = id;
+    }
+
+    printItem(): void {
+        console.log(`${this.title} was published in ${this.year}`);
+        console.log(`Department: ${ReferenceItem.department}`);
+        console.log(`Department: ${Object.getPrototypeOf(this).constructor.department}`);
+    }
+
+    get id(): number {
+        return this.#id;
+    }
+
+    abstract printCitation(): void;
+}
+
+class Encyclopedia extends ReferenceItem {
+    constructor(id: number, title: string, year: number, public edition: number) {
+        console.log('Creating Encyclopedia object...');
+        super(id, title, year);
+    }
+
+    override printItem(): void {
+        super.printItem();
+        console.log(`Edition: ${this.edition} (${this.year})`)
+    }
+
+    printCitation(): void {
+        console.log(`${this.title}-${this.year}`)
+    }
+}
+
+class UniversityLibrarian implements Librarian {
+    department: string;
+    name: string;
+    email: string;
+    // constructor(public department: string, public name: string, public email: string) {
+    //     console.log('Constructing UniversityLibrarian object')
+    // }
+
+    assistCustomer(custName: string, bookTitle: string): void {
+        console.log(`${this.name} is assisting ${custName} with the book ${bookTitle}`)
+    }
+}
+
+
+// ==================================================================
+
+// const refBook = new Encyclopedia(1, 'Learn TypeScript', 2022, 3);
+
+// const ref = new ReferenceItem(1, 'Learn TypeScript', 2022);
+// ref.printItem();
+// ref.publisher = 'asdf';
+// console.log(ref.publisher);
+// console.log(ref.id);
+// // ReferenceItem class was changed to abstract
+
+// console.log(refBook);
+// refBook.printItem();
+// refBook.printCitation();
+
+// const universityLibrarian: Librarian = new UniversityLibrarian()
+// universityLibrarian.name = 'Anna'
+// universityLibrarian.assistCustomer('Adam', 'Learn TypeScript')
+
+// ==================================================================
