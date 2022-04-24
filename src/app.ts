@@ -137,7 +137,7 @@ function createCustomer(name: string, age?: number, city?: string): void {
 }
 
 // const getBookByID = (id: number): Book => {
-function getBookByID(id: Book['id']): Book | undefined {
+function getBookByID(id: Book['id']): BookOrUndefined {
     return getAllBooks().find(book => book.id === id);
 }
 
@@ -345,11 +345,11 @@ class Encyclopedia extends ReferenceItem {
 
     override printItem(): void {
         super.printItem();
-        console.log(`Edition: ${this.edition} (${this.year})`)
+        console.log(`Edition: ${this.edition} (${this.year})`);
     }
 
     printCitation(): void {
-        console.log(`${this.title}-${this.year}`)
+        console.log(`${this.title}-${this.year}`);
     }
 }
 
@@ -358,12 +358,34 @@ class UniversityLibrarian implements Librarian {
     name: string;
     email: string;
     // constructor(public department: string, public name: string, public email: string) {
-    //     console.log('Constructing UniversityLibrarian object')
+    //     console.log('Constructing UniversityLibrarian object');
     // }
 
     assistCustomer(custName: string, bookTitle: string): void {
-        console.log(`${this.name} is assisting ${custName} with the book ${bookTitle}`)
+        console.log(`${this.name} is assisting ${custName} with the book ${bookTitle}`);
     }
+}
+
+type PersonBook = Person & Book;
+type BookOrUndefined = Book | undefined;
+const personBook: PersonBook = {
+    name: 'Ann',
+    email: 'ann@gmail.com',
+    id: 1,
+    title: 'Learn TypeScript',
+    author: 'John Adams',
+    category: Category.TypeScript,
+    available: true
+}
+
+interface TOptions {
+    duration?: number;
+    speed?: number;
+}
+function setDefaultConfig(options: TOptions): TOptions {
+    options.duration ??= 100;
+    options.speed ??= 60;
+    return options;
 }
 
 
@@ -385,5 +407,9 @@ class UniversityLibrarian implements Librarian {
 // const universityLibrarian: Librarian = new UniversityLibrarian()
 // universityLibrarian.name = 'Anna'
 // universityLibrarian.assistCustomer('Adam', 'Learn TypeScript')
+
+// let obj: TOptions = {speed: 50};
+// obj = setDefaultConfig(obj);
+// console.log(obj);
 
 // ==================================================================
