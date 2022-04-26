@@ -1,6 +1,7 @@
 import { Book, TOptions } from './interfaces';
 import { Category } from './enums';
 import { BookOrUndefined, BookProperties } from './types';
+import RefBook from './encyclopedia';
 
 export function getAllBooks(): readonly Book[] {
     const books = <const>[
@@ -123,6 +124,17 @@ export function assertStringValue(val: any): asserts val is string {
     if (typeof val !== 'string') {
         throw new Error('Value should have been a string');
     }
+}
+
+export function assertRefBookInstance(condition: any): asserts condition {
+    if (!condition) {
+        throw new Error('It is not an instance of RefBook');
+    }
+}
+
+export function printRefBook(data: any): void {
+    assertRefBookInstance(data instanceof RefBook);
+    data.printItem();
 }
 
 export function bookTitleTransform(title: any): string | never {

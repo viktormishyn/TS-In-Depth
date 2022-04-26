@@ -1,8 +1,10 @@
-import { ReferenceItem } from "./classes";
-import { Category } from "./enums";
-import { createCustomerID } from "./functions";
-import { Author, Book, Librarian, Logger } from "./interfaces";
-import { PersonBook } from "./types";
+import { ReferenceItem } from './classes';
+import { Category } from './enums';
+import { createCustomerID, printRefBook } from './functions';
+import { Author, Book, Librarian, Logger } from './interfaces';
+import { PersonBook } from './types';
+
+import RefBook from './encyclopedia';
 
 showHello('greeting', 'TypeScript');
 
@@ -54,7 +56,6 @@ idGenerator = createCustomerID;
 // console.log(bookTitleTransform(12356));
 
 // ========================== 04 Interfaces =========================
-
 
 const myBook: Book = {
     id: 5,
@@ -114,22 +115,6 @@ const offer: any = {
 
 // =========================== 05 Classses ==========================
 
-class Encyclopedia extends ReferenceItem {
-    constructor(id: number, title: string, year: number, public edition: number) {
-        console.log('Creating Encyclopedia object...');
-        super(id, title, year);
-    }
-
-    override printItem(): void {
-        super.printItem();
-        console.log(`Edition: ${this.edition} (${this.year})`);
-    }
-
-    printCitation(): void {
-        console.log(`${this.title}-${this.year}`);
-    }
-}
-
 const personBook: PersonBook = {
     name: 'Ann',
     email: 'ann@gmail.com',
@@ -137,12 +122,12 @@ const personBook: PersonBook = {
     title: 'Learn TypeScript',
     author: 'John Adams',
     category: Category.TypeScript,
-    available: true
-}
+    available: true,
+};
 
 // ==================================================================
 
-// const refBook = new Encyclopedia(1, 'Learn TypeScript', 2022, 3);
+// const refBook = new RefBook(1, 'Learn TypeScript', 2022, 3);
 
 // const ref = new ReferenceItem(1, 'Learn TypeScript', 2022);
 // ref.printItem();
@@ -154,6 +139,8 @@ const personBook: PersonBook = {
 // console.log(refBook);
 // refBook.printItem();
 // refBook.printCitation();
+// printRefBook(refBook);
+// // printRefBook('Not refBook argument - an error');
 
 // const universityLibrarian: Librarian = new UniversityLibrarian()
 // universityLibrarian.name = 'Anna'
