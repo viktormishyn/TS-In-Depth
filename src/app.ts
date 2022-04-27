@@ -148,4 +148,21 @@ const personBook: PersonBook = {
 // obj = setDefaultConfig(obj);
 // console.log(obj);
 
-// ==================================================================
+// =========================== 06 Modules ==========================
+
+const flag = false;
+
+// if (flag) {
+//     import('./classes')
+//         .then(module => {
+//             const reader = new module.Reader();
+//             console.log(reader);
+//         })
+//         .catch(e => console.log(e));
+// }
+
+if (flag) {
+    const module = await import('./classes');
+    const reader = new module.Reader();
+    console.log(reader);
+}
