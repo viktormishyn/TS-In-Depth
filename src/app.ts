@@ -3,6 +3,8 @@ import { Category } from './enums';
 import { createCustomerID, printRefBook } from './functions';
 import { Author, Book, Librarian, Logger } from './interfaces';
 import { PersonBook } from './types';
+import { Library } from './classes';
+// import type { Library } from './classes';
 
 showHello('greeting', 'TypeScript');
 
@@ -166,3 +168,10 @@ if (flag) {
     const reader = new module.Reader();
     console.log(reader);
 }
+
+// let lib: Library = new Library() // error
+let lib: Library = {
+    id: 1,
+    name: 'John',
+    address: 'New York',
+};
