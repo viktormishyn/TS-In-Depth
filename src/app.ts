@@ -1,10 +1,8 @@
-import { ReferenceItem } from './classes';
+import { ReferenceItem, UL, RefBook } from './classes';
 import { Category } from './enums';
 import { createCustomerID, printRefBook } from './functions';
 import { Author, Book, Librarian, Logger } from './interfaces';
 import { PersonBook } from './types';
-
-import RefBook from './encyclopedia';
 
 showHello('greeting', 'TypeScript');
 
@@ -142,7 +140,7 @@ const personBook: PersonBook = {
 // printRefBook(refBook);
 // // printRefBook('Not refBook argument - an error');
 
-// const universityLibrarian: Librarian = new UniversityLibrarian()
+// const universityLibrarian: Librarian = new UL.UniversityLibrarian()
 // universityLibrarian.name = 'Anna'
 // universityLibrarian.assistCustomer('Adam', 'Learn TypeScript')
 
