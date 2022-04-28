@@ -1,6 +1,6 @@
 import { ReferenceItem, UL, RefBook } from './classes';
 import { Category } from './enums';
-import { createCustomerID, printRefBook } from './functions';
+import { createCustomerID, printRefBook, purge } from './functions';
 import { Author, Book, Librarian, Logger } from './interfaces';
 import { PersonBook } from './types';
 import { Library } from './classes';
@@ -175,3 +175,18 @@ let lib: Library = {
     name: 'John',
     address: 'New York',
 };
+
+// =========================== 07 Generics ==========================
+
+const inventory: Book[] = [
+    { id: 10, title: 'The C Programming Language', author: 'K & R', available: true, category: Category.Software },
+    { id: 11, title: 'Code Complete', author: 'Steve McConnell', available: true, category: Category.Software },
+    { id: 12, title: '8-Bit Graphics with Cobol', author: 'A. B.', available: true, category: Category.Software },
+    { id: 13, title: 'Cool autoexec.bat Scripts!', author: 'C. D.', available: true, category: Category.Software },
+];
+
+let result: Book[] | number[] = purge<Book>(inventory);
+console.log(result);
+
+result = purge<number>([1, 2, 3]);
+console.log(result);

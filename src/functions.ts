@@ -156,3 +156,7 @@ export function setDefaultConfig(options: TOptions): TOptions {
     options.speed ??= 60;
     return options;
 }
+
+export function purge<T>(inventory: Array<T>): T[] {
+    return inventory.slice(2);
+}
